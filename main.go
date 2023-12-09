@@ -70,7 +70,7 @@ func sendHelpCommand(ctx context.Context, b *bot.Bot, chatID int64) {
 	msg += "You can use the following commands to interact with me:\n"
 	msg += "  • /add <name> - Add a new birthday\n"
 	msg += "  • /showall - Show all birthdays\n"
-	msg += "  • /search - Search for a birthday\n"
+	msg += "  • /search - Search for birthdays\n"
 	msg += "  • /remove - Remove a birthday\n"
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: chatID,
