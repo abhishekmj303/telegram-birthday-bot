@@ -52,9 +52,8 @@ func birthdaypickerRemoveHandler(ctx context.Context, b *bot.Bot, mes *models.Me
 	}
 
 	b.SendMessage(ctx, &bot.SendMessageParams{
-		ChatID:           chatID,
-		Text:             text,
-		ParseMode:        models.ParseModeHTML,
-		ReplyToMessageID: mes.ReplyToMessage.ID,
+		ChatID:    chatID,
+		Text:      text,
+		ParseMode: models.ParseModeHTML,
 	})
 }

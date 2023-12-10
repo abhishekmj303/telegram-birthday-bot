@@ -10,7 +10,6 @@ import (
 
 func ShowallHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
 	chatID := update.Message.Chat.ID
-	msgID := update.Message.ID
 	var text string
 
 	bd := utils.BirthdayInfo{ChatID: chatID}
@@ -26,9 +25,8 @@ func ShowallHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
 	}
 
 	b.SendMessage(ctx, &bot.SendMessageParams{
-		ChatID:           chatID,
-		Text:             text,
-		ParseMode:        models.ParseModeHTML,
-		ReplyToMessageID: msgID,
+		ChatID:    chatID,
+		Text:      text,
+		ParseMode: models.ParseModeHTML,
 	})
 }

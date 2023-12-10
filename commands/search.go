@@ -158,19 +158,9 @@ func Search(ctx context.Context, b *bot.Bot, mes *models.Message, bd *utils.Birt
 		}
 	}
 
-	// if searchby == "name" {
 	b.SendMessage(ctx, &bot.SendMessageParams{
-		ChatID:                   chatID,
-		Text:                     text,
-		ParseMode:                models.ParseModeHTML,
-		ReplyToMessageID:         mes.ReplyToMessage.ID,
-		AllowSendingWithoutReply: true,
+		ChatID:    chatID,
+		Text:      text,
+		ParseMode: models.ParseModeHTML,
 	})
-	// return
-	// }
-	// b.EditMessageText(ctx, &bot.EditMessageTextParams{
-	// 	ChatID:    chatID,
-	// 	MessageID: mes.ID,
-	// 	Text:      text,
-	// })
 }
