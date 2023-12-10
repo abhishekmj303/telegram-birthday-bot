@@ -19,6 +19,7 @@ func StartNotifier(ctx context.Context, b *bot.Bot) {
 	s.Every(1).Day().At("00:00").Do(notifyAllBefore, ctx, b, 0)
 	s.Every(1).Day().At("20:00").Do(notifyAllBefore, ctx, b, 1)
 	s.Every(1).Day().At("10:00").Do(notifyAllBefore, ctx, b, 7)
+	s.StartAsync()
 }
 
 func notifyBefore(ctx context.Context, b *bot.Bot, bd BirthdayInfo, before int) {
