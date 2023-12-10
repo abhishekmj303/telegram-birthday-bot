@@ -34,7 +34,7 @@ func notifyBefore(ctx context.Context, b *bot.Bot, bd BirthdayInfo, before int) 
 		text = fmt.Sprintf("%d days from now", before)
 	}
 
-	text += fmt.Sprintf(" (%s) is %s's birthday 🎂", bd.Date(), bd.Name)
+	text += fmt.Sprintf(" is %s's birthday 🎂 (%s)", bd.Name, bd.Date())
 
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: bd.ChatID,

@@ -48,7 +48,7 @@ func birthdaypickerRemoveHandler(ctx context.Context, b *bot.Bot, mes *models.Me
 		log.Println(err)
 		text = utils.RetryReply("/remove")
 	} else {
-		text = fmt.Sprintf("<b>Removed Birthday</b> of '%s'", bd.Name)
+		text = fmt.Sprintf("<b>Removed Birthday</b> of %s", bd.Name)
 	}
 
 	b.SendMessage(ctx, &bot.SendMessageParams{
