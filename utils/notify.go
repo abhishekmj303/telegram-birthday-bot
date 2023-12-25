@@ -16,6 +16,7 @@ var (
 func StartNotifier(ctx context.Context, b *bot.Bot) {
 	tz, _ = time.LoadLocation("Asia/Kolkata")
 	s := gocron.NewScheduler(tz)
+	s.Every(1).Day().At("12:00").Do(notifyAllBefore, ctx, b, -1)
 	s.Every(1).Day().At("00:00").Do(notifyAllBefore, ctx, b, 0)
 	s.Every(1).Day().At("20:00").Do(notifyAllBefore, ctx, b, 1)
 	s.Every(1).Day().At("10:00").Do(notifyAllBefore, ctx, b, 7)
@@ -35,6 +36,10 @@ func notifyBefore(ctx context.Context, b *bot.Bot, bd BirthdayInfo, before int) 
 	}
 
 	text += fmt.Sprintf(" is %s's birthday 🎂 (%s)", bd.Name, bd.Date())
+
+	if before == -1 {
+		text = fmt.Sprintf("Did you wish %s a happy birthday?\nIf not wish now itself.", bd.Name)
+	}
 
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: bd.ChatID,
