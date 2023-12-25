@@ -22,6 +22,7 @@ const (
 	updateDateSQL     = "UPDATE birthdays SET day = ?, month = ? WHERE chat_id = ? AND name = ?"
 	updateNameSQL     = "UPDATE birthdays SET name = ? WHERE chat_id = ? AND name = ?"
 	deleteSQL         = "DELETE FROM birthdays WHERE chat_id = ? AND name = ?"
+	orderbySQL        = " ORDER BY month, day"
 )
 
 func GetBirthday(chatID int64, name string) (BirthdayInfo, error) {
@@ -79,16 +80,16 @@ func SearchBirthday(bd *BirthdayInfo, searchby string) ([]BirthdayInfo, error) {
 
 	switch searchby {
 	case "all":
-		rows, err = DBConn.Query(selectAllSQL, bd.ChatID)
+		rows, err = DBConn.Query(selectAllSQL+orderbySQL, bd.ChatID)
 	case "name":
 		likeExp := "%" + strings.ToLower(bd.Name) + "%"
-		rows, err = DBConn.Query(selectNameLikeSQL, bd.ChatID, likeExp)
+		rows, err = DBConn.Query(selectNameLikeSQL+orderbySQL, bd.ChatID, likeExp)
 	case "month":
-		rows, err = DBConn.Query(selectMonthSQL, bd.ChatID, bd.Month)
+		rows, err = DBConn.Query(selectMonthSQL+orderbySQL, bd.ChatID, bd.Month)
 	case "day":
-		rows, err = DBConn.Query(selectDaySQL, bd.ChatID, bd.Day)
+		rows, err = DBConn.Query(selectDaySQL+orderbySQL, bd.ChatID, bd.Day)
 	case "date":
-		rows, err = DBConn.Query(selectDateSQL, bd.ChatID, bd.Day, bd.Month)
+		rows, err = DBConn.Query(selectDateSQL+orderbySQL, bd.ChatID, bd.Day, bd.Month)
 	default:
 		return nil, fmt.Errorf("invalid searchby: %s", searchby)
 	}
