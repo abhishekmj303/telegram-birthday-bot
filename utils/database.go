@@ -12,7 +12,7 @@ var (
 
 const (
 	insertSQL         = "INSERT INTO birthdays (chat_id, name, day, month) VALUES (?, ?, ?, ?)"
-	selectSQL         = "SELECT chat_id, name, day, month FROM birthdays"
+	selectOnSQL       = "SELECT chat_id, name, day, month FROM birthdays WHERE day = ? AND month = ?"
 	selectAllSQL      = "SELECT name, day, month FROM birthdays WHERE chat_id = ?"
 	selectNameSQL     = "SELECT name, day, month FROM birthdays WHERE chat_id = ? AND name = ?"
 	selectNameLikeSQL = "SELECT name, day, month FROM birthdays WHERE chat_id = ? AND LOWER(name) LIKE ?"
@@ -46,8 +46,8 @@ func GetBirthday(chatID int64, name string) (BirthdayInfo, error) {
 	return bd, nil
 }
 
-func GetBirthdays() ([]BirthdayInfo, error) {
-	rows, err := DBConn.Query(selectSQL)
+func GetBirthdaysOn(day int, month int) ([]BirthdayInfo, error) {
+	rows, err := DBConn.Query(selectOnSQL, day, month)
 	if err != nil {
 		return nil, err
 	}
