@@ -48,11 +48,15 @@ func notifyBefore(ctx context.Context, b *bot.Bot, bd BirthdayInfo, before int) 
 }
 
 func notifyAllBefore(ctx context.Context, b *bot.Bot, before int) {
+	var bdDate time.Time
 	now := time.Now().In(tz)
-	day := now.Day() + before
-	month := int(now.Month())
+	if before == -1 {
+		bdDate = now
+	} else {
+		bdDate = now.AddDate(0, 0, before)
+	}
 
-	bds, err := GetBirthdaysOn(day, month)
+	bds, err := GetBirthdaysOn(bdDate.Day(), int(bdDate.Month()))
 	if err != nil {
 		fmt.Println(err)
 		return
